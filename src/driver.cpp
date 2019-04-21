@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "md5.h"
+#include "pw_man.h"
 
 int main()
 {
@@ -14,6 +15,8 @@ int main()
     std::cout << "MD5 input: ";
     std::cin >> password;
 
-    md5 MD5 = md5();
-    MD5.Digest(password);
+    md5 MD5 = md5(password);
+    std::cout << MD5 << "\n";
+
+    pw_man manager = pw_man();
 }

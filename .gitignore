@@ -3,3 +3,4 @@ passwd.code-workspace
 passwd.txt
 src/driver.exe
 src/.vscode/*
+src/.vscode/ipch/56e19a72fdc5a2d2/DRIVER.ipch
