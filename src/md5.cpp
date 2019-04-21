@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string.h>
 
 #include "md5.h"
 

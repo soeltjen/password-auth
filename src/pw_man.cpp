@@ -1,12 +1,6 @@
-#include <fstream>
-#include <iostream>
-#include <ctime>
+
 #include "pw_man.h"
 #include "md5.h"
-
-using std::cin;
-using std::cout;
-using std::string;
 
 pw_man::pw_man()
 {
@@ -37,10 +31,11 @@ void pw_man::generate_file()
         cout << "Salt: " << salt;
         cout << "\nPassword: ";
         cin >> password;
-        MD5 = md5(password.c_str() + salt);
+        // cout << "String to be hashed: " << password.c_str() + std::to_string(salt) << "\n";
+        MD5 = md5(password.c_str() + std::to_string(salt));
         cout << "Salted Hash: " << MD5 << "\n";
         file << MD5 << "\n";
+        file.flush();
     }
-
     file.close();
 }

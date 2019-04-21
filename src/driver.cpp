@@ -12,11 +12,11 @@ int main()
     //         if (argv[i][0] == '-' && argv[i][1] == 's')
     //     }
     string password;
-    std::cout << "MD5 input: ";
-    std::cin >> password;
+    // std::cout << "MD5 input: ";
+    // std::cin >> password;
 
-    md5 MD5 = md5(password);
-    std::cout << MD5 << "\n";
+    // md5 MD5 = md5(password);
+    // std::cout << MD5 << "\n";
 
     pw_man manager = pw_man();
 }

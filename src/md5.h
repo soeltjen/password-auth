@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstring>
+#include <cstdio>
 using std::string;
 
 #define S11 7
