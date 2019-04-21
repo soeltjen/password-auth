@@ -1,14 +1,6 @@
-#ifndef MD
-#define MD MD5
-#endif
 
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
 #include "md5.h"
-
-#define TEST_BLOCK_LEN 1000
-#define TEST_BLOCK_COUNT 1000
 
 int main()
 {

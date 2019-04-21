@@ -61,29 +61,27 @@ typedef unsigned char byte;
 typedef unsigned short int UINT2;
 typedef unsigned long int UINT4;
 
-//MD5 Context
-typedef struct
-{
-    UINT4 state[4]; // state (A,B,C,D)
-    UINT4 count[2]; // number of bits
-    unsigned char buffer[64];
-} MD5_CTX;
 
 class md5
 {
   public:
+    md5();
     md5(const string &str);
     const byte *Digest(const string &str);
-    void Print(byte digest[16]);
+    string Print();
+    friend std::ostream& operator << (std::ostream& output, md5 md5);
 
   private:
     static const byte PADDING[64];
     byte digest[16];
+    UINT4 state[4];
+    UINT4 count[2];
+    byte buffer[64];
 
-    void Init(MD5_CTX *context);
-    void Update(MD5_CTX *context, const byte *input, size_t inputLen);
-    void Final(byte digest[16], MD5_CTX *context);
-    void Transform(UINT4 state[4], const byte block[64]);
+    void Init();
+    void Update(const byte *input, size_t inputLen);
+    void Final();
+    void Transform(const byte block[64]);
     void Encode(byte *output, const UINT4 *input, size_t len);
     void Decode(UINT4 *output, const byte *input, size_t len);
 };

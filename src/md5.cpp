@@ -9,54 +9,50 @@ const byte md5::PADDING[64] = {0x80};
 
 md5::md5(const string &str)
 {
-    MD5_CTX context;
-    byte digest[16];
     byte *message = (byte *)str.c_str();
 
-    Init(&context);
-    Update(&context, message, str.size());
-    Final(digest, &context);
+    Init();
+    Update(message, str.size());
+    Final();
 
-    std::cout << "string: " << str << "\ndigest: ";
-    Print(digest);
 }
-void md5::Init(MD5_CTX *context)
+void md5::Init()
 {
-    context->count[0] = context->count[1] = 0;
+    count[0] =count[1] = 0;
     /* Load magic initialization constants.
 */
-    context->state[0] = 0x67452301;
-    context->state[1] = 0xefcdab89;
-    context->state[2] = 0x98badcfe;
-    context->state[3] = 0x10325476;
+    state[0] = 0x67452301;
+    state[1] = 0xefcdab89;
+    state[2] = 0x98badcfe;
+    state[3] = 0x10325476;
 }
 
 /* MD5 block update operation. Continues an MD5 message-digest
   operation, processing another message block, and updating the
   context.
  */
-void md5::Update(MD5_CTX *context, const byte *input, size_t inputLen)
+void md5::Update(const byte *input, size_t inputLen)
 {
-    unsigned int i, index, partLen;
+    size_t i, index, partLen;
 
     /* Compute number of bytes mod 64 */
-    index = (unsigned int)((context->count[0] >> 3) & 0x3F);
+    index = (unsigned int)((count[0] >> 3) & 0x3F);
 
     /* Update number of bits */
-    if ((context->count[0] += ((UINT4)inputLen << 3)) < ((UINT4)inputLen << 3))
-        context->count[1]++;
-    context->count[1] += ((UINT4)inputLen >> 29);
+    if ((count[0] += ((UINT4)inputLen << 3)) < ((UINT4)inputLen << 3))
+        count[1]++;
+    count[1] += ((UINT4)inputLen >> 29);
 
     partLen = 64 - index;
 
     //Transform as many times as possible
     if (inputLen >= partLen)
     {
-        memcpy(&context->buffer[index], input, partLen);
-        Transform(context->state, context->buffer);
+        memcpy(&buffer[index], input, partLen);
+        Transform(buffer);
 
         for (i = partLen; i + 63 < inputLen; i += 64)
-            Transform(context->state, &input[i]);
+            Transform(&input[i]);
         index = 0;
     }
     else
@@ -64,32 +60,33 @@ void md5::Update(MD5_CTX *context, const byte *input, size_t inputLen)
         i = 0;
     }
 
-    memcpy(&context->buffer[index], &input[i], inputLen - i);
+    memcpy(&buffer[index], &input[i], inputLen - i);
 }
 
 // MD5 finalization. Ends the MD5 operation, writing the digest and zeroing the context
-void md5::Final(byte digest[16], MD5_CTX *context)
+void md5::Final()
 {
     byte bits[8];
-    unsigned int index, padLen;
+    size_t index, padLen;
 
     //save number of bits
-    Encode(bits, context->count, 8);
+    Encode(bits, count, 8);
 
     //pad out to 56 mod 64
-    index = (unsigned int)((context->count[0] >> 3) & 0x3f);
+    index = (size_t)((count[0] >> 3) & 0x3f);
     padLen = (index < 56) ? (56 - index) : (120 - index);
-    Update(context, PADDING, padLen);
+    Update(PADDING, padLen);
     //append length (before padding)
-    Update(context, bits, 8);
+    Update(bits, 8);
 
     //store state in digest
-    Encode(digest, context->state, 16);
+    Encode(digest,state, 16);
 
-    memset(&context, 0, sizeof(*context));
+    memset(buffer, 0, sizeof buffer);
+    memset(count, 0, sizeof count);
 }
 
-void md5::Transform(UINT4 state[4], const byte block[64])
+void md5::Transform(const byte block[64])
 {
     UINT4 a = state[0], b = state[1], c = state[2], d = state[3];
     UINT4 x[16];
@@ -205,10 +202,16 @@ void md5::Decode(UINT4 *output, const byte *input, size_t len)
                     (((UINT4)input[j + 2]) << 16) | (((UINT4)input[j + 3]) << 24);
 }
 
-void md5::Print(byte digest[16])
+string md5::Print()
 {
+    char hash[33];
     for (int i = 0; i < 16; i++)
     {
-        printf("%02x", digest[i]);
+        sprintf(hash+i*2,"%02x", digest[i]);
     }
+    return string(hash);
+}
+
+std::ostream& operator << (std::ostream& output, md5 md5){
+    return output << md5.Print();
 }
