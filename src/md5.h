@@ -2,7 +2,6 @@
 #define MD5_H
 
 #include <string>
-#include <cstring>
 
 using std::string;
 
@@ -67,7 +66,6 @@ class md5
   public:
     md5();
     md5(const string &str);
-    const byte *Digest(const string &str);
     string Print();
     friend std::ostream& operator << (std::ostream& output, md5 md5);
 

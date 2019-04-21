@@ -4,9 +4,10 @@
 #include "md5.h"
 
 const byte md5::PADDING[64] = {0x80};
-/* MD5 initialization. Begins an MD5 operation, writing a new context.
- */
 
+md5::md5(){
+    Init();
+}
 md5::md5(const string &str)
 {
     byte *message = (byte *)str.c_str();
