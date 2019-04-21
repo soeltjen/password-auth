@@ -22,20 +22,26 @@ void pw_man::generate_file()
     int count = 1;
 
     md5 MD5;
+    std::stringstream stream;
     while (!finished)
     {
         salt = rand();
         cout << "User ID: ";
         cin >> uid;
-        file << uid << "," << salt << ",";
+        file << uid << " " << salt << " ";
         cout << "Salt: " << salt;
         cout << "\nPassword: ";
         cin >> password;
         // cout << "String to be hashed: " << password.c_str() + std::to_string(salt) << "\n";
-        MD5 = md5(password.c_str() + std::to_string(salt));
+        stream << salt;
+        MD5 = md5(password.c_str() + stream.str());
         cout << "Salted Hash: " << MD5 << "\n";
         file << MD5 << "\n";
         file.flush();
     }
     file.close();
+}
+
+void pw_man::verify()
+{
 }

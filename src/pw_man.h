@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <stdlib.h>
 #include <ctime>
 
@@ -14,4 +15,5 @@ public:
     void generate_file();
 
 private:
+    void verify();
 };
