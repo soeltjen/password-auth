@@ -21,7 +21,7 @@ void pw_man::generate_file()
     std::ofstream file;
     file.open("passwords.txt", std::ios::out);
 
-    int salt = rand();
+    int salt;
     int uid;
     string password;
 
@@ -30,6 +30,7 @@ void pw_man::generate_file()
     md5 MD5;
     while (!finished)
     {
+        salt = rand();
         cout << "User ID: ";
         cin >> uid;
         file << uid << "," << salt << ",";

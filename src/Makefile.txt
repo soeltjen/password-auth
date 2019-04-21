@@ -1,0 +1,6 @@
+CC=g++
+FLAGS="-g"
+all: DriverT
+
+DriverT: driver.cpp md5.cpp pw_man.cpp
+    $(CC) $(CFLAGS) driver.cp md5.cpp pw_man.cpp
