@@ -12,6 +12,7 @@ int main()
     //         if (argv[i][0] == '-' && argv[i][1] == 's')
     //     }
     string password;
+    int uid;
     // std::cout << "MD5 input: ";
     // std::cin >> password;
 
@@ -19,4 +20,12 @@ int main()
     // std::cout << MD5 << "\n";
 
     pw_man manager = pw_man();
+
+    manager.generate_file();
+    cout << "Enter a user ID to verify: ";
+    cin >> uid;
+    cout << "Enter the password: ";
+    cin >> password;
+
+    manager.verify(uid, password);
 }

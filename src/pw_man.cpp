@@ -4,7 +4,8 @@
 
 pw_man::pw_man()
 {
-    generate_file();
+    // generate_file();
+    // pw_file.open("passwords.txt", std::ios::in || std::ios::out);
 }
 
 void pw_man::generate_file()
@@ -12,8 +13,7 @@ void pw_man::generate_file()
     srand(time(NULL));
     bool finished = false;
 
-    std::ofstream file;
-    file.open("passwords.txt", std::ios::out);
+    pw_file.open("passwords.txt", std::ios::out);
 
     int salt;
     int uid;
@@ -23,12 +23,12 @@ void pw_man::generate_file()
 
     md5 MD5;
     std::stringstream stream;
-    while (!finished)
+    for (int i = 0; i < 2; i++)
     {
         salt = rand();
         cout << "User ID: ";
         cin >> uid;
-        file << uid << " " << salt << " ";
+        pw_file << uid << " " << salt << " ";
         cout << "Salt: " << salt;
         cout << "\nPassword: ";
         cin >> password;
@@ -36,12 +36,41 @@ void pw_man::generate_file()
         stream << salt;
         MD5 = md5(password.c_str() + stream.str());
         cout << "Salted Hash: " << MD5 << "\n";
-        file << MD5 << "\n";
-        file.flush();
+        pw_file << MD5 << "\n";
+        pw_file.flush();
     }
-    file.close();
+    pw_file.close();
 }
 
-void pw_man::verify()
+void pw_man::verify(int uid, string password)
 {
+    pw_file.open("passwords.txt", std::ios::in);
+    int id;
+    string salt;
+    string hash;
+    string newHash;
+    md5 MD5;
+    bool found = false;
+    int i;
+    pw_file >> id >> salt >> hash;
+    // cout << "here\n";
+    while (i < 5)
+    {
+        // cout << "ID: " << id << "salt: " << salt << "hash: " << hash << '\n';
+        // cout << "in while\n";
+        MD5 = md5(password.c_str() + salt);
+        newHash = MD5.Print();
+
+        //check if generated hash matches file hash.
+        // cout << newHash << " = " << hash << "\n";
+        if (!newHash.compare(hash))
+        {
+            std::cout << "User " << uid << " password is verified.";
+        }
+        found = (id == uid);
+        pw_file >> id;
+        pw_file >> salt;
+        pw_file >> hash;
+        i++;
+    }
 }

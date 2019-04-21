@@ -13,7 +13,8 @@ class pw_man
 public:
     pw_man();
     void generate_file();
+    void verify(int uid, string password);
 
 private:
-    void verify();
+    std::fstream pw_file;
 };
