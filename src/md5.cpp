@@ -7,10 +7,14 @@ const byte md5::PADDING[64] = {0x80};
 /* MD5 initialization. Begins an MD5 operation, writing a new context.
  */
 
-md5::md5(const string &str)
+md5::md5()
+{
+    byte digest[16];
+}
+
+void md5::Digest(const string &str)
 {
     MD5_CTX context;
-    byte digest[16];
     byte *message = (byte *)str.c_str();
 
     Init(&context);
@@ -85,7 +89,6 @@ void md5::Final(byte digest[16], MD5_CTX *context)
 
     //store state in digest
     Encode(digest, context->state, 16);
-
     memset(&context, 0, sizeof(*context));
 }
 

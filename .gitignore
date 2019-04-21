@@ -1,2 +1,5 @@
 a.exe
 passwd.code-workspace
+passwd.txt
+src/driver.exe
+src/.vscode/*

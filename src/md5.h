@@ -72,8 +72,8 @@ typedef struct
 class md5
 {
   public:
-    md5(const string &str);
-    const byte *Digest(const string &str);
+    md5();
+    void Digest(const string &str);
     void Print(byte digest[16]);
 
   private:
