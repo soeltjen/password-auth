@@ -1,7 +1,7 @@
-a.exe
 passwd.code-workspace
 passwd.txt
-src/driver.exe
 src/.vscode/*
-src/.vscode/ipch/56e19a72fdc5a2d2/DRIVER.ipch
-src/.vscode/ipch/56e19a72fdc5a2d2/DRIVER.ipch
+.vscode/*
+src/a.out
+Makefile.bak
+src/auth
