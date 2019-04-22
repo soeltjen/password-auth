@@ -210,6 +210,15 @@ string md5::Print()
     }
     return string(hash);
 }
+string md5::Digest(const string &str){
+    md5 MD5;
+    byte *message = (byte *)str.c_str();
+
+    MD5.Update(message, str.size());
+    MD5.Final();
+    string digest = MD5.Print();
+    return digest;
+}
 
 std::ostream &operator<<(std::ostream &output, md5 md5)
 {

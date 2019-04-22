@@ -5,14 +5,16 @@ CXXFLAGS= -Wall
 
 SRC = driver.cpp md5.cpp pw_man.cpp
 HEADER = md5.h pw_man.h
-OBJ = $(SRC)
+OBJ = driver.o md5.o pw_man.o
 
-%.o: %.cpp $(HEADER)
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 auth: $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
-debug:
-	$(CXX) -o auth -g $(SRC)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
+debug:$(OBJ)
+	$(CXX) $(CXXFLAGS) -g -o $@ $^
+clean:
+	rm -f *.o
 
 depend:
 	makedepend $(CXXFLAGS) $(SRC)

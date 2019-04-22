@@ -20,8 +20,9 @@ void pw_man::generate_file()
     int salt;
     int uid;
     string password;
+    string salted_password;
+    string hash;
 
-    md5 MD5;
     std::stringstream stream;
     for (int i = 1; i <= filesize; i++)
     {
@@ -31,9 +32,9 @@ void pw_man::generate_file()
 
         uid = i;
         pw_file << uid << " " << salt << " ";
-        MD5 = md5(password.c_str() + stream.str());
-        
-        pw_file << MD5 << "\n";
+        salted_password = password.c_str() +stream.str();
+        hash = md5::Digest(salted_password);
+        pw_file << hash << "\n";
         pw_file.flush();
         stream.str(std::string());
 
@@ -51,7 +52,6 @@ void pw_man::verify(int uid, string password)
     string salt;
     string hash;
     string newHash;
-    md5 MD5;
     bool found = false;
 
     while(!found){
@@ -65,8 +65,7 @@ void pw_man::verify(int uid, string password)
     if(found)
     {
         // cout << "ID: " << id << "salt: " << salt << "hash: " << hash << '\n';
-        MD5 = md5(password.c_str() + salt);
-        newHash = MD5.Print();
+        newHash = md5::Digest(password.c_str() + salt);
 
         //check if generated hash matches file hash.
         // cout << newHash << " = " << hash << "\n";

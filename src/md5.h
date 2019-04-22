@@ -69,6 +69,7 @@ public:
     md5(const string &str);
     string Print();
     friend std::ostream &operator<<(std::ostream &output, md5 md5);
+    static string Digest(const string &str);
 
 private:
     static const byte PADDING[64];

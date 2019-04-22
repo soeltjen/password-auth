@@ -1,7 +1,8 @@
 passwd.code-workspace
-passwd.txt
 src/.vscode/*
 .vscode/*
 src/a.out
 Makefile.bak
 src/auth
+src/*.o
+src/passwords.txt
