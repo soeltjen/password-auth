@@ -12,6 +12,7 @@ void pw_man::generate_file()
 {
     srand(time(NULL));
     std::ifstream source;
+    std::ofstream pw_file;
     source.open("p_list");
 
     pw_file.open("passwords.txt");
@@ -20,13 +21,11 @@ void pw_man::generate_file()
     int uid;
     string password;
 
-    int count = 1;
-
     md5 MD5;
     std::stringstream stream;
-    for (int i = 1; i < filesize; i++)
+    for (int i = 1; i <= filesize; i++)
     {
-        salt = rand() + (count++);
+        salt = rand() + i;
         stream << salt;
         source >> password;
 
@@ -43,8 +42,8 @@ void pw_man::generate_file()
 
 void pw_man::verify(int uid, string password)
 {
+    std::ifstream pw_file;
     pw_file.open("passwords.txt");
-    // std::stringstream stream;
     int id;
     string salt;
     string hash;
