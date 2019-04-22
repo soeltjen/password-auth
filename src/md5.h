@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
 using std::string;
 
 #define S11 7
