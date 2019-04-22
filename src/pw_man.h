@@ -16,10 +16,12 @@ public:
     pw_man();
     void generate_file();
     void verify(int uid, string password);
-
-private:
     std::fstream pw_file;
     std::ifstream source;
+
+private:
+    // std::fstream pw_file;
+    // std::ifstream source;
 };
 
 #endif
