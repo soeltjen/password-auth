@@ -1,9 +1,9 @@
+#ifndef PW_MAN
+#define PW_MAN
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 using std::cin;
 using std::cout;
@@ -19,4 +19,7 @@ public:
 
 private:
     std::fstream pw_file;
+    std::ifstream source;
 };
+
+#endif

@@ -1,6 +1,5 @@
 
 
-#include <iostream>
 #include "md5.h"
 #include "pw_man.h"
 
@@ -27,7 +26,7 @@ int main(int argc, char** argv)
     // md5 MD5 = md5(password);
     // std::cout << MD5 << "\n";
 
-    while(!done){
+    {
 
         cout << "Enter a user ID to verify: ";
         cin >> uid;
