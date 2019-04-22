@@ -18,19 +18,12 @@ int main(int argc, char** argv)
 
     string password;
     int uid;
-    bool done = false;
-    // std::cout << "MD5 input: ";
-    // std::cin >> password;
 
-    // md5 MD5 = md5(password);
-    // std::cout << MD5 << "\n";
+    md5 MD5;
 
-    {
-
-        cout << "Enter a user ID to verify: ";
-        cin >> uid;
-        cout << "Enter the password: ";
-        cin >> password;
-        manager.verify(uid, password);
-    }
+    cout << "Enter a user ID to verify: ";
+    cin >> uid;
+    cout << "Enter the password: ";
+    cin >> password;
+    manager.verify(uid, password);
 }

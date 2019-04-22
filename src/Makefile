@@ -1,14 +1,16 @@
 BASEDIR =  ~/code/password-auth/src
 
 CXX=g++
-CXXFLAGS= -O -I./ < $(HEADER)
+CXXFLAGS= -Wall
 
 SRC = driver.cpp md5.cpp pw_man.cpp
 HEADER = md5.h pw_man.h
-OBJ = $(SRC:%.cpp=%.o)
+OBJ = $(SRC)
 
-build: 
-	$(CXX) -o auth $(SRC)
+%.o: %.cpp $(HEADER)
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+auth: $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 debug:
 	$(CXX) -o auth -g $(SRC)
 

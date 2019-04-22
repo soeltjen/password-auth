@@ -32,9 +32,12 @@ void pw_man::generate_file()
         uid = i;
         pw_file << uid << " " << salt << " ";
         MD5 = md5(password.c_str() + stream.str());
+        
         pw_file << MD5 << "\n";
         pw_file.flush();
-        cout << "User " << i << "'s password: " << password << " Salt: "<< salt << " Hash: " << MD5 << "\n";
+        stream.str(std::string());
+
+        // cout << "User " << i << "'s password: " << password << " Salt: "<< salt << " Hash: " << MD5 << "\n";
     }
     source.close();
     pw_file.close();
@@ -70,7 +73,7 @@ void pw_man::verify(int uid, string password)
 
         cout << id  << " " << salt  << " " << hash << "\n";
         // cout << hash << "\n" << newHash << "\n";
-        cout << "Hashing " << password << "+" << salt << ": " << newHash << "\n";
+        cout << password << " -> " << (password+salt)  << " "<< newHash << "\n";
         if (!newHash.compare(hash))
         {
             // cout << hash << "\n" << newHash << "\n";
