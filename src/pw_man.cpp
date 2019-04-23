@@ -8,7 +8,7 @@ pw_man::pw_man()
     // generate_file();
 }
 
-void pw_man::generate_file()
+void pw_man::generate_file(int filesize)
 {
     srand(time(NULL));
     std::ifstream source;
@@ -58,25 +58,18 @@ void pw_man::verify(int uid, string password)
         pw_file >> id >> salt >> hash;
         if(id==uid){
             found=true;
-            cout << "found user " << uid << " in file.\n";
         }
     }
 
     if(found)
     {
-        // cout << "ID: " << id << "salt: " << salt << "hash: " << hash << '\n';
         newHash = md5::Digest(password.c_str() + salt);
 
-        //check if generated hash matches file hash.
-        // cout << newHash << " = " << hash << "\n";
 
-        cout << id  << " " << salt  << " " << hash << "\n";
-        // cout << hash << "\n" << newHash << "\n";
-        cout << password << " -> " << (password+salt)  << " "<< newHash << "\n";
+        cout << hash << "\n" << newHash << "\n";
         if (!newHash.compare(hash))
         {
-            // cout << hash << "\n" << newHash << "\n";
-            cout << "\nUser " << uid << " password is verified.\n";
+            cout << "User " << uid << " password is verified.\n";
         }
         else
         {

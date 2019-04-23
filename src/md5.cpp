@@ -219,6 +219,9 @@ string md5::Digest(const string &str){
     string digest = MD5.Print();
     return digest;
 }
+string md5::SaltedHash(const string &str, const string &salt){
+    return md5::Digest(str+salt);
+}
 
 std::ostream &operator<<(std::ostream &output, md5 md5)
 {

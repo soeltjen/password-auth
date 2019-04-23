@@ -14,8 +14,8 @@ class pw_man
 public:
     int filesize;
     pw_man();
-    void generate_file();
-    void verify(int uid, string password);
+    static void generate_file(int filesize);
+    static void verify(int uid, string password);
 
 private:
 };

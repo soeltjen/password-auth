@@ -70,6 +70,7 @@ public:
     string Print();
     friend std::ostream &operator<<(std::ostream &output, md5 md5);
     static string Digest(const string &str);
+    static string SaltedHash(const string &str, const string &salt);
 
 private:
     static const byte PADDING[64];
@@ -84,6 +85,7 @@ private:
     void Transform(const byte block[64]);
     void Encode(byte *output, const UINT4 *input, size_t len);
     void Decode(UINT4 *output, const byte *input, size_t len);
+    
 };
 
 #endif
