@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <time.h>
 
 using std::cin;
 using std::cout;
