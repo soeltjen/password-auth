@@ -16,8 +16,6 @@ int main(int argc, char** argv)
 {
     // Main driver
     // Command-line options:
-    // 
-    // pw_man manager = pw_man();
     char mode;
     int filesize = 99;
     int num_chains = 5000;
@@ -32,8 +30,8 @@ int main(int argc, char** argv)
     std::fstream rainbow_table;
     rainbow_table.open("rainbow_table");
 
-    if(argc>=1){
-        mode = argv[1][1];
+    if(argc>1){
+        mode = argv[1][0];
         if (mode == 'g'){
             cout << "Generating password file\n";
             pw_man::generate_file(filesize);
@@ -62,27 +60,14 @@ int main(int argc, char** argv)
             rainbow_table.close();
             hash_list.close();
 
-
         }
-        else{
-            cout <<"\nCommand-Line Options\n\
-              ====================\n\
-              g : Generate password file\n\
-              v : Verify user password\n\
-              r : Generate rainbow table\n\
-              c : Try to crack hashes\n";
-        }
+        else
+            help();
     }
     else{
-        cout <<"\nCommand-Line Options\n\
-          ====================\n\
-          g : Generate password file\n\
-          v : Verify user password\n\
-          r : Generate rainbow table\n\
-          c : Try to crack hashes\n";
+        help();
     }
 
-    //List of passwords
 
     p_list.close();
     hash_list.close();
